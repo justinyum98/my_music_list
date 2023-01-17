@@ -1,6 +1,10 @@
-import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:my_music_list/screens/login_screen.dart';
+import 'package:flutter/material.dart';
+import 'package:my_music_list/models/user_model.dart';
+import 'package:my_music_list/screens/home_screen.dart';
+import 'package:my_music_list/screens/signin_screen.dart';
+import 'package:provider/provider.dart';
+
 import 'firebase_options.dart';
 
 void main() async {
@@ -8,7 +12,8 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(const MyApp());
+  runApp(ChangeNotifierProvider(
+      create: (context) => UserModel(), child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -20,6 +25,11 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
         title: 'MyMusicList',
         theme: ThemeData(primarySwatch: Colors.blue),
-        home: const LoginScreen());
+        home: Consumer<UserModel>(builder: (context, userModel, child) {
+          if (userModel.isSignedIn()) {
+            return const HomeScreen();
+          }
+          return const SignInScreen();
+        }));
   }
 }

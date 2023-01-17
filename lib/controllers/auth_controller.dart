@@ -25,8 +25,10 @@ class AuthController {
     } on FirebaseAuthException catch (e) {
       // TODO: Handle firebase error(s) by adding an alert (maybe create an alert class)
       print(e);
+      rethrow;
     } catch (e) {
       print(e);
+      rethrow;
     }
 
     return user;
@@ -47,8 +49,10 @@ class AuthController {
     } on FirebaseAuthException catch (e) {
       // TODO: Handle firebase error(s) by adding an alert (maybe create an alert class)
       print(e);
+      rethrow;
     } catch (e) {
       print(e);
+      rethrow;
     }
 
     return user;
@@ -72,7 +76,6 @@ class AuthController {
     // Once signed in, return the User.
     UserCredential userCredential =
         await FirebaseAuth.instance.signInWithCredential(credential);
-    print(userCredential.user);
     return userCredential.user;
   }
 
