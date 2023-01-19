@@ -1,7 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:my_music_list/models/user_model.dart';
-import 'package:my_music_list/screens/home_screen.dart';
+import 'package:my_music_list/screens/home_albums_screen.dart';
 import 'package:my_music_list/screens/signin_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -27,9 +27,9 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(primarySwatch: Colors.blue),
         home: Consumer<UserModel>(builder: (context, userModel, child) {
           if (userModel.isSignedIn()) {
-            return const HomeScreen();
+            return const HomeAlbumsScreen();
           }
-          return const SignInScreen();
+          return SignInScreen(onSignIn: userModel.signIn);
         }));
   }
 }
